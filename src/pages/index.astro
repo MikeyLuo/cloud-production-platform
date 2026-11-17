@@ -1,16 +1,253 @@
 ---
+const destinations = [
+  {
+    slug: 'projects',
+    title: 'Projects',
+    description: 'Cloud and DevOps builds',
+    icon: 'M2 6l6-3 6 3-6 3z M2 9l6 3 6-3 M2 12l6 3 6-3',
+  },
+  {
+    slug: 'resume',
+    title: 'Resume',
+    description: 'Experience and skills',
+    icon: 'M4 1.5h5l4 4v9H3v-13z M9 1.5v4h4 M5.5 8h5 M5.5 11h5',
+  },
+  {
+    slug: 'about',
+    title: 'About Me',
+    description: 'My background',
+    icon: 'M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0z M2.5 14a5.5 5.5 0 0 1 11 0',
+  },
+  {
+    slug: 'travel',
+    title: 'Travel Blog',
+    description: 'Explore the Field Atlas',
+    icon: 'M2 3l4-1.5 4 2 4-1.5v11l-4 1.5-4-2-4 1.5z M6 1.5v11 M10 3.5v11',
+  },
+] as const;
+
+const navigation = [destinations[2], destinations[1], destinations[0], destinations[3]];
 ---
 
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Michael Luong’s cloud infrastructure projects, resume, and travel blog." />
+    <title>Michael Luong | Portfolio</title>
+  </head>
+  <body>
+    <div class="frame">
+      <header class="site-header">
+        <a class="wordmark" href="/" aria-label="Michael Luong, home">
+          <span aria-hidden="true">&gt;_</span> Michael Luong
+        </a>
+        <nav aria-label="Main navigation">
+          <ul class="navigation">
+            {navigation.map(({ slug, title }) => (
+              <li><a href={`/${slug}/`}>{title}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <section class="terminal" aria-labelledby="portfolio-name">
+          <div class="terminal-bar">
+            <span class="lights" aria-hidden="true"><i></i><i></i><i></i></span>
+            michael@portfolio ~
+          </div>
+          <div class="terminal-body">
+            <p class="command"><span aria-hidden="true">$ </span>whoami</p>
+            <h1 id="portfolio-name">Michael Luong<span class="cursor" aria-hidden="true"></span></h1>
+            <p class="intro">DevOps, cloud infrastructure, and stories from the road.</p>
+          </div>
+        </section>
+
+        <section class="portfolio" aria-labelledby="portfolio-heading">
+          <h2 id="portfolio-heading">Explore the portfolio</h2>
+          <ul class="cards">
+            {destinations.map(({ slug, title, description, icon }) => (
+              <li>
+                <a class:list={['card', { featured: slug === 'projects' }]} href={`/${slug}/`}>
+                  <div class="card-top" aria-hidden="true">
+                    <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                      <path d={icon} />
+                    </svg>
+                    <span>↗</span>
+                  </div>
+                  <strong>{title}</strong>
+                  <span class="description">{description}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+        <footer>Page views · 1,284 (sample)</footer>
+      </main>
+    </div>
+  </body>
 </html>
+
+<style>
+  :global(body) {
+    margin: 0;
+    background: #0d131f;
+    color: #f0f5ff;
+    font: 0.9375rem/1.45 Arial, sans-serif;
+  }
+
+  .frame {
+    --muted: #b5c7e1;
+    --mint: #a4ffdc;
+    --mono: "IBM Plex Mono", "Courier New", monospace;
+    box-sizing: border-box;
+    max-width: 62rem;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 0.875rem;
+    box-shadow: inset 0 0 0 1px #314359;
+  }
+
+  .site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.25rem;
+    box-sizing: border-box;
+    min-height: 63px;
+    padding: 0.75rem clamp(1.1875rem, 3.5vw, 2.25rem);
+    border-bottom: 1px solid #29384d;
+    background: #101824;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  a:focus-visible {
+    outline: 2px solid var(--mint);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    gap: 0.6rem;
+    font: bold 0.75rem/1.4 var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .wordmark span, .command, .lights, .card-top { color: var(--mint); }
+
+  .navigation, .cards {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navigation {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem clamp(0.75rem, 4.4vw, 1.5rem);
+    padding-right: 0.625rem;
+    color: var(--muted);
+    font-size: 0.8125rem;
+  }
+
+  .navigation a { display: inline-block; padding-block: 0.375rem; }
+  .navigation a:hover { color: var(--mint); }
+
+  main {
+    padding: 23px clamp(1.1875rem, 3.5vw, 2.25rem) 22px;
+    background: radial-gradient(circle, #26384c 1px, transparent 1.25px) -4px 0 / 22px 22px;
+  }
+
+  .terminal {
+    overflow: hidden;
+    border: 1px solid #3b5367;
+    border-radius: 12px;
+    background: radial-gradient(ellipse at 94% 135%, #193a4e, transparent 62%), #121c2a;
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    min-height: 35px;
+    padding-inline: 15px;
+    border-bottom: 1px solid #3b5367;
+    background: #1a2637;
+    font: 0.8125rem/1.4 var(--mono);
+  }
+
+  .lights { display: inline-flex; gap: 11px; }
+  .lights i { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+
+  .terminal-body { padding: 22px 22px 24px; }
+  .command { margin: 0; font: bold 0.8125rem/1.4 var(--mono); }
+
+  h1 {
+    margin: 0.55rem 0 0.5rem;
+    font-size: clamp(2rem, 7.37vw, 3.75rem);
+    line-height: 1.1;
+    letter-spacing: -0.055em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 0.23em;
+    height: 0.68em;
+    margin-left: 0.13em;
+    background: var(--mint);
+  }
+
+  .intro { margin: 0; color: var(--muted); }
+  .portfolio { margin-top: 24px; }
+  h2 { margin: 0 0 9px; font: 0.875rem/1.35 var(--mono); }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    height: 100%;
+    min-height: 107px;
+    padding: 15px 14px 13px;
+    border: 1px solid #36485f;
+    border-radius: 9px;
+    background: #151f30;
+  }
+
+  .card.featured, .card:hover, .card:focus-visible {
+    border-color: #679c96;
+    background: #1c3341;
+  }
+
+  .card:focus-visible { border-radius: 9px; }
+
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-size: 0.75rem;
+  }
+
+  .description { margin-top: 5px; color: var(--muted); font-size: 0.8125rem; }
+  footer { margin-top: 18px; color: var(--muted); font: 0.75rem/1.5 var(--mono); }
+
+  @media (max-width: 30rem) {
+    .site-header { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (max-width: 22rem) {
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
