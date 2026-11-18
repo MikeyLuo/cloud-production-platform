@@ -1,4 +1,6 @@
 ---
+import FieldAtlas from '../components/FieldAtlas.astro';
+
 export function getStaticPaths() {
   return [
     { params: { section: 'about' }, props: { title: 'About Me' } },
@@ -23,9 +25,7 @@ const isTravel = Astro.params.section === 'travel';
     <main>
       <a href="/">← Mission Control</a>
       <h1>{title}</h1>
-      {isTravel && (
-        <p>Field Atlas will feature Peru, Greece, Ireland, Thailand, the Philippines, and Vietnam.</p>
-      )}
+      {isTravel && <FieldAtlas />}
     </main>
   </body>
 </html>
