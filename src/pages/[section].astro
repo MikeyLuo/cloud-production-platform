@@ -1,4 +1,5 @@
 ---
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import FieldAtlas from '../components/FieldAtlas.astro';
 
 export function getStaticPaths() {
@@ -11,33 +12,9 @@ export function getStaticPaths() {
 }
 
 const { title } = Astro.props;
-const isTravel = Astro.params.section === 'travel';
+const section = Astro.params.section ?? '';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title} | Michael Luong</title>
-  </head>
-  <body>
-    <main>
-      <a href="/">← Mission Control</a>
-      <h1>{title}</h1>
-      {isTravel && <FieldAtlas />}
-    </main>
-  </body>
-</html>
-
-<style>
-  :global(body) {
-    margin: 0;
-    background: #0b1018;
-    color: #edf4ff;
-    font: 1rem/1.55 system-ui, sans-serif;
-  }
-
-  main { max-width: 56rem; margin: 0 auto; padding: 3rem 1.25rem; }
-  a { color: #75f2be; }
-</style>
+<PortfolioLayout title={title} section={section}>
+  {section === 'travel' && <FieldAtlas />}
+</PortfolioLayout>

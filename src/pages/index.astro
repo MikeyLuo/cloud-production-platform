@@ -26,7 +26,7 @@ const destinations = [
   },
 ] as const;
 
-const navigation = [destinations[2], destinations[1], destinations[0], destinations[3]];
+
 ---
 
 <!doctype html>
@@ -43,13 +43,14 @@ const navigation = [destinations[2], destinations[1], destinations[0], destinati
         <a class="wordmark" href="/" aria-label="Michael Luong, home">
           <span aria-hidden="true">&gt;_</span> Michael Luong
         </a>
-        <nav aria-label="Main navigation">
-          <ul class="navigation">
-            {navigation.map(({ slug, title }) => (
-              <li><a href={`/${slug}/`}>{title}</a></li>
-            ))}
-          </ul>
-        </nav>
+        <nav aria-label="Contact and navigation">
+			<ul class="navigation">
+				<li><a href="michaeltriluong@gmail.com">Email</a></li>
+				<li><a href="https://github.com/mikeyluo">GitHub</a></li>
+				<li><a href="https://www.linkedin.com/in/michael-luong-695751165/">LinkedIn</a></li>
+				<li><a href="/">Home</a></li>
+			</ul>
+		</nav>
       </header>
 
       <main>
