@@ -1,0 +1,150 @@
+---
+interface Props {
+  section: 'about' | 'projects';
+}
+
+const { section } = Astro.props;
+
+const projects = [
+  {
+    title: 'Cloud Production Platform',
+    status: 'In progress',
+    description:
+      'A public portfolio and travel blog with a terminal-inspired homepage and an interactive map of my travels.',
+    tools: ['Astro', 'TypeScript', 'CSS'],
+    details:
+      'Currently building the website. Upcoming work includes GitHub Pages deployment, a Python visitor counter on AWS, Terraform infrastructure, and automated releases.',
+  },
+  {
+    title: 'StreamPulse — Event-Driven Backend',
+    status: 'Built',
+    description:
+      'An event-driven backend project that processes streaming events asynchronously and stores the results.',
+    tools: ['Python', 'Kinesis', 'Lambda', 'DynamoDB', 'Terraform'],
+    details:
+      'Built and tested locally using Floci, with GitHub Actions checks for the project.',
+    href: 'https://github.com/MikeyLuo/Event-Driven-Archtiecture',
+  },
+];
+---
+
+{section === 'about' && (
+  <article class="panel about">
+    <h2>Hi, I’m Michael.</h2>
+    <p>
+      I'm a software engineer graduate who is building their career in cloud engineering and DevOps. Through my software engineering 
+      background and DevOps experience, I found that I really enjoy automating reptitive work, understanding how systems fit together,
+      and troubleshooting problems.
+    </p>
+    <p>
+      My experience includes AWS, Terraform, containerized services,
+      CI/CD pipelines, and monitoring. I use personal projects to practice
+      deploying applications and verifying that they work.
+    </p>
+    <p>
+      Outside of technology, I am narutally curious person who enjoys traveling and trying local food.
+      My Field Atlas follows my travels through Peru, Greece, Ireland,
+      Thailand, the Philippines, and Vietnam.
+    </p>
+    <a href="/projects/">Explore my projects →</a>
+  </article>
+)}
+
+{section === 'projects' && (
+  <div class="projects">
+    {projects.map((project) => (
+      <article class="panel">
+        <div class="project-heading">
+          <h2>{project.title}</h2>
+          <span class="status">{project.status}</span>
+        </div>
+
+        <p>{project.description}</p>
+
+        <ul class="tools" aria-label={`${project.title} technologies`}>
+          {project.tools.map((tool) => <li>{tool}</li>)}
+        </ul>
+
+        <p>{project.details}</p>
+
+        {'href' in project && (
+          <a href={project.href}>View StreamPulse on GitHub →</a>
+        )}
+      </article>
+    ))}
+  </div>
+)}
+
+<style>
+  .projects {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .panel {
+    padding: clamp(1.25rem, 4vw, 2rem);
+    border: 1px solid #36485f;
+    border-radius: 12px;
+    background: #151f30;
+    overflow-wrap: anywhere;
+  }
+
+  .about {
+    max-width: 44rem;
+  }
+
+  h2 {
+    margin: 0;
+    color: #f0f5ff;
+    font-size: 1.25rem;
+    line-height: 1.35;
+  }
+
+  p {
+    margin: 1rem 0;
+    color: #b5c7e1;
+    line-height: 1.75;
+  }
+
+  .project-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+  }
+
+  .status {
+    color: #a4ffdc;
+    font: 0.8125rem/1.5 "Courier New", monospace;
+  }
+
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .tools li {
+    padding: 0.25rem 0.6rem;
+    border: 1px solid #36485f;
+    border-radius: 5px;
+    color: #b5c7e1;
+    font-size: 0.8125rem;
+  }
+
+  a {
+    display: inline-block;
+    color: #a4ffdc;
+    text-underline-offset: 0.25em;
+  }
+
+  a:focus-visible {
+    outline: 2px solid #a4ffdc;
+    outline-offset: 4px;
+    border-radius: 3px;
+  }
+</style>
