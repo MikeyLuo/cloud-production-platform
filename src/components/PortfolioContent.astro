@@ -4,6 +4,7 @@ interface Props {
 }
 
 const { section } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const projects = [
   {
@@ -46,7 +47,7 @@ const projects = [
       My Field Atlas follows my travels through Peru, Greece, Ireland,
       Thailand, the Philippines, and Vietnam.
     </p>
-    <a href="/projects/">Explore my projects →</a>
+    <a href={`${base}/projects/`}>Explore my projects →</a>
   </article>
 )}
 

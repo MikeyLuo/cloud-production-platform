@@ -4,6 +4,8 @@ interface Props {
   section: string;
 }
 
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const { title, section } = Astro.props;
 
 {/*const navigation = [
@@ -31,7 +33,7 @@ const { title, section } = Astro.props;
 
     <div class="frame">
       <header>
-        <a class="wordmark" href="/" aria-label="Michael Luong, home">
+        <a class="wordmark" href={`${base}/`} aria-label="Michael Luong, home">
           <span aria-hidden="true">&gt;_</span> Michael Luong
         </a>
 
@@ -40,13 +42,13 @@ const { title, section } = Astro.props;
                 <li><a href="mailto:michaeltriluong@gmail.com">Email</a></li>
                 <li><a href="https://github.com/mikeyluo">GitHub</a></li>
                 <li><a href="https://www.linkedin.com/in/michael-luong-695751165/">LinkedIn</a></li>
-                <li><a href="/">Home</a></li>
+                <li><a href={`${base}/`}>Home</a></li>
             </ul>
         </nav>
       </header>
 
       <main id="content" tabindex="-1">
-        <a class="back-link" href="/">← Mission Control</a>
+        <a class="back-link" href={`${base}/`}>← Mission Control</a>
         <h1>{title}</h1>
         <slot />
       </main>

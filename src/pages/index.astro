@@ -1,4 +1,6 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const destinations = [
   {
     slug: 'projects',
@@ -40,7 +42,7 @@ const destinations = [
   <body>
     <div class="frame">
       <header class="site-header">
-        <a class="wordmark" href="/" aria-label="Michael Luong, home">
+        <a class="wordmark" href={`${base}/`} aria-label="Michael Luong, home">
           <span aria-hidden="true">&gt;_</span> Michael Luong
         </a>
         <nav aria-label="Contact and navigation">
@@ -48,7 +50,7 @@ const destinations = [
 				<li><a href="malito:michaeltriluong@gmail.com">Email</a></li>
 				<li><a href="https://github.com/mikeyluo">GitHub</a></li>
 				<li><a href="https://www.linkedin.com/in/michael-luong-695751165/">LinkedIn</a></li>
-				<li><a href="/">Home</a></li>
+				<li><a href={`${base}/`}>Home</a></li>
 			</ul>
 		</nav>
       </header>
@@ -71,7 +73,7 @@ const destinations = [
           <ul class="cards">
             {destinations.map(({ slug, title, description, icon }) => (
               <li>
-                <a class:list={['card', { featured: slug === 'projects' }]} href={`/${slug}/`}>
+                <a class:list={['card', { featured: slug === 'projects' }]} href={`${base}/${slug}/`}>
                   <div class="card-top" aria-hidden="true">
                     <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                       <path d={icon} />
