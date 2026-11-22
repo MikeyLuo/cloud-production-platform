@@ -2,6 +2,7 @@
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import FieldAtlas from '../components/FieldAtlas.astro';
 import  PortfolioContent  from '../components/PortfolioContent.astro';
+import ResumeContent from '../components/ResumeContent.astro'
 
 export function getStaticPaths() {
   return [
@@ -20,6 +21,8 @@ const section = Astro.params.section ?? '';
   {(section === 'about' || section === 'projects') && (
     <PortfolioContent section={section} />
   )}
+
+  {section === 'resume' && <ResumeContent />}
 
   {section === 'travel' && <FieldAtlas />}
 </PortfolioLayout>
