@@ -17,3 +17,8 @@ output "counter_log_group_name" {
   description = "CloudWatch log group for the counter."
   value       = aws_cloudwatch_log_group.counter.name
 }
+
+output "counter_api_url" {
+  description = "Public endpoint for recording a page view."
+  value       = "${aws_apigatewayv2_api.counter.api_endpoint}/views"
+}
