@@ -35,3 +35,4 @@ __pycache__/
 *.tfplan
 *.tfvars
 *.tfvars.json
+/.build/
