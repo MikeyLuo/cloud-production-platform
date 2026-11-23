@@ -22,3 +22,8 @@ output "counter_api_url" {
   description = "Public endpoint for recording a page view."
   value       = "${aws_apigatewayv2_api.counter.api_endpoint}/views"
 }
+
+output "terraform_state_bucket" {
+  description = "S3 bucket containing the portfolio Terraform state."
+  value       = aws_s3_bucket.terraform_state.id
+}
