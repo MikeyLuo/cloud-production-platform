@@ -1,2 +1,2 @@
 # cloud-production-platform
-Cloud production portfolio
+My portfolio is currently accessible here: https://mikeyluo.github.io/cloud-production-platform/ 
