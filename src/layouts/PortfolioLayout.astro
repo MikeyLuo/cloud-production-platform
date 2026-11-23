@@ -5,6 +5,7 @@ interface Props {
 }
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import  PageViewCounter  from '../components/PageViewCounter.astro';
 
 const { title, section } = Astro.props;
 
@@ -51,6 +52,9 @@ const { title, section } = Astro.props;
         <a class="back-link" href={`${base}/`}>← Mission Control</a>
         <h1>{title}</h1>
         <slot />
+        <footer>
+          <PageViewCounter />
+        </footer>
       </main>
     </div>
   </body>
@@ -172,4 +176,9 @@ const { title, section } = Astro.props;
       align-items: flex-start;
     }
   }
+
+  footer{
+    margin-top: 1.5rem;
+  }
+
 </style>

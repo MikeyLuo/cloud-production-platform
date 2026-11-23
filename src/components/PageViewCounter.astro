@@ -1,0 +1,74 @@
+---
+const endpoint = import.meta.env.PUBLIC_COUNTER_API_URL?.trim();
+
+if (!endpoint) {
+  throw new Error('Set PUBLIC_COUNTER_API_URL before building the website.');
+}
+---
+
+<page-view-counter data-endpoint={endpoint}>
+  Page views · <span data-count aria-live="polite">Unavailable</span>
+</page-view-counter>
+
+<script>
+  class PageViewCounter extends HTMLElement {
+    private started = false;
+
+    connectedCallback() {
+      if (this.started) return;
+
+      this.started = true;
+      void this.recordView();
+    }
+
+    private async recordView() {
+      const count = this.querySelector<HTMLElement>('[data-count]');
+      const endpoint = this.dataset.endpoint;
+
+      if (!count || !endpoint) return;
+
+      count.textContent = 'Loading…';
+
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 8000);
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          credentials: 'omit',
+          cache: 'no-store',
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Counter returned HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!Number.isSafeInteger(data.views) || data.views < 0) {
+          throw new Error('Counter returned an invalid total');
+        }
+
+        count.textContent = new Intl.NumberFormat('en-CA').format(data.views);
+      } catch (error) {
+        count.textContent = 'Unavailable';
+        console.warn('Page-view counter request failed.', error);
+      } finally {
+        window.clearTimeout(timeout);
+      }
+    }
+  }
+
+  if (!customElements.get('page-view-counter')) {
+    customElements.define('page-view-counter', PageViewCounter);
+  }
+</script>
+
+<style>
+  page-view-counter {
+    display: block;
+    color: #b5c7e1;
+    font: 0.75rem/1.5 "Courier New", monospace;
+  }
+</style>

@@ -32,6 +32,8 @@ jobs:
         run: npm ci
 
       - name: Build website
+        env:
+          PUBLIC_COUNTER_API_URL: ${{ vars.PUBLIC_COUNTER_API_URL }}
         run: npm run build
 
       - name: Verify generated pages and resume
